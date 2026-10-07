@@ -35,13 +35,22 @@ public class SerpentsTeleOp extends LinearOpMode
 
         while (opModeIsActive() && !isStopRequested())
         {
+            boolean pressedX = false;
+
+            // --- Movement ---
             double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             double strafe = gamepad1.left_stick_x;
 
+
+            // --- Buttons ---
+            boolean x_button = gamepad1.a;
+
             // Gamepad Controls
-            if (gamepad1.a) {
-                serpentsHardware.testMotors();
+            if (x_button && !pressedX)
+            {
+                serpentsHardware.setIntakePower(1.0);
+                pressedX = true;
             }
 
             double[] mecanumPowers = serpentsMecanumDrive.calculateMecanumPowers(drive, strafe, turn);

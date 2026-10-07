@@ -18,6 +18,9 @@ public class SerpentsRobotHardware {
     private boolean isInitialized = false;
     private DcMotor frontRight, backRight, frontLeft, backLeft;
     private DcMotor[] allMotors;
+
+    private DcMotor intakeMotor;
+
     private HardwareMap hwMap;
     private Telemetry telemetry;
 
@@ -47,8 +50,11 @@ public class SerpentsRobotHardware {
 
         this.allMotors = new DcMotor[]{this.frontRight, backRight, frontLeft, backLeft};
 
+        this.intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
+
         // Set zero power behavior
         for (DcMotor motor : allMotors) motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Mecanum Drive
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -165,5 +171,11 @@ public class SerpentsRobotHardware {
 
 
 
+    }
+
+    public void setIntakePower(double power)
+    {
+        this.isInitialized();
+        this.intakeMotor.setPower(power);
     }
 }
