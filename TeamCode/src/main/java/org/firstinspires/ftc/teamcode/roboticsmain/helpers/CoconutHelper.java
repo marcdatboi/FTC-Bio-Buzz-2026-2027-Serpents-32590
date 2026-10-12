@@ -12,7 +12,7 @@ public class CoconutHelper
 {
     public static void gay(Telemetry telemetry) throws NullPointerException
     {
-        String nutPath = "org\\firstinspires\\ftc\\teamcode\\roboticsmain\\testicleSmasher.png";
+        String nutPath = "org/firstinspires/ftc/teamcode/roboticsmain/testicleSmasher.png";
         File file = new File(nutPath);
 
         if (!file.exists()) {

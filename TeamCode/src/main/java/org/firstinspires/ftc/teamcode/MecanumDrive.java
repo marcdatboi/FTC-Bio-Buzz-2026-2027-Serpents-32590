@@ -45,6 +45,7 @@ import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumLocalizerInputsMessage;
 import org.firstinspires.ftc.teamcode.messages.PoseMessage;
+import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -58,14 +59,14 @@ public final class MecanumDrive { //leftFront
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
+                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 
         // drive model parametersimu
-        public double inPerTick = 1;
+        public double inPerTick = SerpentsMathHelper.INCHES_PER_TICK;
         public double lateralInPerTick = inPerTick;
-        public double trackWidthTicks = 0;
+        public double trackWidthTicks = SerpentsMathHelper.millimeterToInch(SerpentsMathHelper.TRACK_WIDTH);
 
         // feedforward parameters (in tick units)
         public double kS = 0;
@@ -236,8 +237,8 @@ public final class MecanumDrive { //leftFront
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // TODO: reverse motor directions if needed
-        //   leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        //   leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+       leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+       leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html

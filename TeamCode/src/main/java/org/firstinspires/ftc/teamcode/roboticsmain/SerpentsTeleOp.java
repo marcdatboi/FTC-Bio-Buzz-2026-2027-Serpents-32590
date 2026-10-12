@@ -27,15 +27,24 @@ public class SerpentsTeleOp extends LinearOpMode
 
         // Mecanum Drive
         serpentsMecanumDrive = new SerpentsMecanumDrive(telemetry, serpentsHardware.getAllMotors());
-        CoconutHelper.gay(telemetry);
         telemetry.update();
 
         // Wait until play button is pressed
         waitForStart();
 
+
+
+
+
+        // ---=== Opmode Loop ===---
         while (opModeIsActive() && !isStopRequested())
         {
+            CoconutHelper.gay(telemetry); // Ignore this :3
+
+
+            // Buttons
             boolean pressedX = false;
+
 
             // --- Movement ---
             double drive = -gamepad1.left_stick_y;
@@ -49,12 +58,15 @@ public class SerpentsTeleOp extends LinearOpMode
             // Gamepad Controls
             if (x_button && !pressedX)
             {
-                serpentsHardware.setIntakePower(1.0);
+                serpentsHardware.setIntakePower(-1.0);
                 pressedX = true;
             }
 
+
+            // --- Update Everything at the end of the Loop ---
             double[] mecanumPowers = serpentsMecanumDrive.calculateMecanumPowers(drive, strafe, turn);
             serpentsHardware.setMotorPowers(mecanumPowers);
+            serpentsHardware.setIntakePower(0.0);
             telemetry.update();
         }
     }
