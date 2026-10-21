@@ -44,6 +44,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
             // Buttons
             boolean pressedX = false;
+            boolean pressedB = false;
 
 
             // --- Movement ---
@@ -54,6 +55,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
             // --- Buttons ---
             boolean x_button = gamepad1.a;
+            boolean b_button = gamepad1.b;
 
             // Gamepad Controls
             if (x_button && !pressedX)
@@ -61,12 +63,16 @@ public class SerpentsTeleOp extends LinearOpMode
                 serpentsHardware.setIntakePower(-1.0);
                 pressedX = true;
             }
+            else if (b_button && !pressedB) {
+                serpentsHardware.setConveyorMotorPowers(new double[]{1.0, 1.0});
+                pressedB = true;
+            }
 
 
             // --- Update Everything at the end of the Loop ---
             double[] mecanumPowers = serpentsMecanumDrive.calculateMecanumPowers(drive, strafe, turn);
-            serpentsHardware.setMotorPowers(mecanumPowers);
-            serpentsHardware.setIntakePower(0.0);
+            serpentsHardware.setMotorPowers(mecanumPowers); // Set mecanum powers
+            serpentsHardware.setIntakePower(0.0); // Automatically turn off intake
             telemetry.update();
         }
     }

@@ -18,7 +18,7 @@ public class SerpentsRobotHardware {
     private boolean isInitialized = false;
     private DcMotor frontRight, backRight, frontLeft, backLeft;
     private DcMotor[] allMotors;
-
+    private DcMotor conveyor1Motor, conveyor2Motor;
     private DcMotor intakeMotor;
 
     private HardwareMap hwMap;
@@ -42,19 +42,25 @@ public class SerpentsRobotHardware {
          * None
          */
 
-        // Define Motors
+        // Define Movement Motors
         this.frontRight = this.hwMap.get(DcMotor.class, "frontRight");
         this.backRight = this.hwMap.get(DcMotor.class, "backRight");
         this.frontLeft = this.hwMap.get(DcMotor.class, "frontLeft");
         this.backLeft = this.hwMap.get(DcMotor.class, "backLeft");
-
         this.allMotors = new DcMotor[]{this.frontRight, backRight, frontLeft, backLeft};
 
         this.intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
 
+        // Conveyor motors
+        this.conveyor1Motor = hwMap.get(DcMotor.class, "conveyor1Motor");
+        this.conveyor2Motor = hwMap.get(DcMotor.class, "conveyor2Motor");
+
+
         // Set zero power behavior
         for (DcMotor motor : allMotors) motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.conveyor1Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.conveyor2Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Mecanum Drive
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -62,27 +68,6 @@ public class SerpentsRobotHardware {
 
         this.isInitialized = true;
         telemetry.addLine("Hardware Initialized ^w^");
-        telemetry.update();
-    }
-
-    public void setMotorPowers(double[] powers) {
-        /**
-         * Sets the power of all 4 motors simultaneously and
-         * is mostly for mecanum drive and autonomous.
-         *
-         * Returns
-         * void
-         *
-         * Throws NullPointerException
-         */
-        this.isInitialized();
-
-        for (int i = 0; i < allMotors.length; i++) {
-            allMotors[i].setPower(powers[i]);
-
-            // Logs
-            telemetry.addData("Motor Power" + (i + 1) + ": ", allMotors[i].getPower());
-        }
     }
 
     public void isInitialized() throws NullPointerException
@@ -115,9 +100,16 @@ public class SerpentsRobotHardware {
          * NullPointerException
          *
          */
-        telemetry.addLine("getAllMotors() >> Attempting to retrieve motor objects...");
+        telemetry.addLine("getAllMotors() >> Attempting to retrieve movement motor objects...");
         this.isInitialized();
         return allMotors;
+    }
+
+    public DcMotor[] getAllConveyorMotors() throws NullPointerException
+    {
+        telemetry.addLine("getAllConveyorMotors() >> Attempting to retrieve conveyor motor objects...");
+        this.isInitialized();
+        return new DcMotor[] {this.conveyor1Motor, this.conveyor2Motor};
     }
 
     public double[] getAllMotorPowers() throws NullPointerException
@@ -141,6 +133,13 @@ public class SerpentsRobotHardware {
             resultPowers[i] = allMotors[i].getPower();
         }
         return resultPowers;
+    }
+
+    public double[] getConveyorMotorPowers() throws NullPointerException
+    {
+        telemetry.addLine("getConveyorMotorPowers() >> Trying to get conveyor motor powers...");
+        this.isInitialized();
+        return new double[]{this.conveyor1Motor.getPower(), this.conveyor2Motor.getPower()};
     }
 
     public void testMotors() throws NullPointerException
@@ -173,9 +172,43 @@ public class SerpentsRobotHardware {
 
     }
 
+
+
+    // --- Set Motor Powers ---
     public void setIntakePower(double power)
     {
         this.isInitialized();
         this.intakeMotor.setPower(power);
+    }
+
+    public void setMotorPowers(double[] powers)
+    {
+        /**
+         * Sets the power of all 4 motors simultaneously and
+         * is mostly for mecanum drive and autonomous.
+         *
+         * Returns
+         * void
+         *
+         * Throws NullPointerException
+         */
+        this.isInitialized();
+
+        for (int i = 0; i < allMotors.length; i++) {
+            allMotors[i].setPower(powers[i]);
+
+            // Logs
+            telemetry.addData("Motor Power" + (i + 1) + ": ", allMotors[i].getPower());
+        }
+    }
+
+    public void setConveyorMotorPowers(double[] powers)
+    {
+        this.telemetry.addLine("setConveyorMotorPowers() >> Setting Conveyor Motor Powers...");
+        this.telemetry.addLine(String.format("CONVEYOR 1: %f | CONVEYOR 2: %f", powers[0], powers[1]));
+
+        this.isInitialized();
+        this.conveyor1Motor.setPower(powers[0]);
+        this.conveyor2Motor.setPower(powers[1]);
     }
 }
