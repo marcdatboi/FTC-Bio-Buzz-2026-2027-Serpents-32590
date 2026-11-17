@@ -45,6 +45,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
         // Wait until play button is pressed
         waitForStart();
+        serpentsHardware.getGapServo().setPosition(0.0);
 
 
 
@@ -106,7 +107,8 @@ public class SerpentsTeleOp extends LinearOpMode
             // --- Bumpers ---
             if (increaseBumper && !pressedRightBumper && canPressRightBumper) { // Right Bumper - INCREASE DISTANCE
                 serpentsHardware.setGapServoPosition(
-                        Range.clip(serpentsHardware.getGapServo().getPosition() + 0.1, 0.3, 0.55));
+                        // last config: min = 0.3, max = 0.55
+                        Range.clip(serpentsHardware.getGapServo().getPosition() + 0.1, 0.0, 1.0));
                 canPressRightBumper = false;
                 pressedRightBumper = true;
                 timer.reset();
@@ -114,7 +116,8 @@ public class SerpentsTeleOp extends LinearOpMode
 
             if (decreaseBumper && !pressedLeftBumper && canPressLeftBumper) { // Left Bumper - DECREASE DISTANCE
                 serpentsHardware.setGapServoPosition(
-                        Range.clip(serpentsHardware.getGapServo().getPosition() - 0.1, 0.3, 0.55)
+                        // last config: min = 0.3, max = 0.55
+                        Range.clip(serpentsHardware.getGapServo().getPosition() - 0.1, 0.0, 1.0)
                 );
                 canPressLeftBumper = false;
                 pressedLeftBumper = true;
@@ -129,6 +132,15 @@ public class SerpentsTeleOp extends LinearOpMode
             serpentsHardware.stopIntakeSequence();
             serpentsHardware.stopOuttakeSequence();
 
+
+
+            // --- Update Button States ---
+            // Bumper Cooldowns
+            if (timer.milliseconds() >= 500) { // 0.5 sec
+                canPressLeftBumper = true;
+                canPressRightBumper = true;
+            }
+
             // Update Button States
             pressedB = false;
             pressedA = false;
@@ -136,13 +148,6 @@ public class SerpentsTeleOp extends LinearOpMode
             pressedX = false;
             pressedLeftBumper = false;
             pressedRightBumper = false;
-
-            // Bumper Cooldowns
-            if (timer.milliseconds() >= 200) { // 0.2 sec
-                canPressLeftBumper = true;
-                canPressRightBumper = true;
-            }
-
             telemetry.addLine(String.format("GAP SERVO POS: %.2f", serpentsHardware.getGapServo().getPosition()));
             telemetry.update(); // Update Telemetry
         }

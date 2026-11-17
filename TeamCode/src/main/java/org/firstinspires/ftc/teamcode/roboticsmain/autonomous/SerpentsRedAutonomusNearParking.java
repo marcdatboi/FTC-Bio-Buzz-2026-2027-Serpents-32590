@@ -3,8 +3,10 @@
 
 
 package org.firstinspires.ftc.teamcode.roboticsmain.autonomous;
+import static com.pedropathing.api.Paths.curve;
 import static com.pedropathing.api.Paths.line;
 
+import com.pedropathing.api.Paths;
 import com.pedropathing.paths.Path;
 import com.pedropathing.revhub.drivetrains.MecanumConfig;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -21,12 +23,14 @@ import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
+import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
-@Autonomous(name = "RedAutonomousNearParking")
+@Autonomous(name = "RedAutonomousNearGarden")
 public class SerpentsRedAutonomusNearParking extends LinearOpMode
 {
     private Follower follower;
     private PoseFactory p;
+    private TelemetryLogger logger;
 
     @Override
     public void runOpMode()
@@ -34,20 +38,19 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
         Scheduler.reset();
         this.p = PoseFactory.degrees();
         this.follower = Constants.create(hardwareMap);
+        this.logger = new TelemetryLogger(this.follower, telemetry);
         this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
 
         while (!isStarted() && !isStopRequested())
         {
             this.follower.update();
-            telemetry.addLine("Autonomous initializing, please wait at least 3 seconds :3");
-            telemetry.addData("Follower X:", follower.pose().x());
-            telemetry.addData("Follower Y:", follower.pose().y());
-            telemetry.addData("Follower HEADING:", follower.pose().heading());
+            telemetry.addLine("Autonomous initializing, please wait at least a few seconds :3");
+            this.logger.displayCurrentPosition();
             telemetry.update();
         }
 
         // Scheduling Routines
-        schedule(autoRoutine());
+        schedule(this.autoRoutine());
 
 
 //      --- Wait For Start ---
@@ -57,12 +60,16 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
         {
             follower.update();
             Scheduler.execute();
+
+            // Telemetry Stuff
+            this.logger.displayCurrentPosition();
             telemetry.update();
         }
     }
 
+
     // --- Routines ---
-    private Command autoRoutine()
+    private Command autoRoutine() // use in the 'schedule()' function
     {
         return sequential(
                 follow(follower, toScore())
@@ -72,7 +79,13 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
 
     // --- PATHING ---
     private Path toScore() {
-        return line(SerpentsMathHelper.redStartingPositionNearGarden, SerpentsMathHelper.redShootingPositionNorth).linear(
-                SerpentsMathHelper.redStartingPositionNearGarden, SerpentsMathHelper.redShootingPositionNorth);
+        return curve(
+                SerpentsMathHelper.redStartingPositionNearGarden,
+                SerpentsMathHelper.redControlPointNorth,
+                SerpentsMathHelper.redShootingPositionNorth
+        ).linear(
+                SerpentsMathHelper.redStartingPositionNearGarden,
+                SerpentsMathHelper.redShootingPositionNorth
+        );
     }
 }

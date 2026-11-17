@@ -63,9 +63,18 @@ public class SerpentsMathHelper {
     public static final Pose redShootingPositionNorth = poseFactory.of(58.5, 126.0, 270.0);
     public static final Pose redShootingPositionSouth = poseFactory.of(58.87, 9.48, 90.0);
 
+    // RED ALLIANCE CONTROL
+    public static final Pose redControlPointNorth = poseFactory.of(34.81, 88.17, -45.0);
+    public static final Pose redControlPointSouth = poseFactory.of(44.94, 44.86, 45.0);
+
     // BLUE ALLIANCE
     public static final Pose blueStartingPositionNearGarden = poseFactory.of(132, 58.237, 180);
     public static final Pose blueStartingPositionNearFlower = poseFactory.of(131.96, 80.74, 180);
     public static final Pose blueShootingPositionNorth = poseFactory.of(83.6, 128.2, 270);
     public static final Pose blueShootingPositionSouth = poseFactory.of(83.0, 14.28, 90);
+
+    // BLUE ALLIANCE CONTROL
+    public static final Pose blueControlPointSouth = poseFactory.of(90.0, 34.0, 75.0);
+    public static final Pose getBlueControlPointNorth = poseFactory.of(108.85, 111.39, 270.0);
+
 }

@@ -21,6 +21,7 @@ public class SerpentsRobotHardware {
     private DcMotor frontRight, backRight, frontLeft, backLeft;
     private DcMotor outtakeMotor;
     private DcMotor conveyorMotor;
+    private DcMotor turretMotor;
     private DcMotor intakeMotor;
     private DcMotor[] allMotors;
 
@@ -52,27 +53,31 @@ public class SerpentsRobotHardware {
 
         // --- Motors ---
         // Define Movement Motors
-        this.frontRight = this.hwMap.get(DcMotor.class, "frontRight");
-        this.backRight = this.hwMap.get(DcMotor.class, "backRight");
-        this.frontLeft = this.hwMap.get(DcMotor.class, "frontLeft");
-        this.backLeft = this.hwMap.get(DcMotor.class, "backLeft");
+        this.frontRight = this.hwMap.get(DcMotor.class, "frontRight"); // Port C0
+        this.backRight = this.hwMap.get(DcMotor.class, "backRight"); // Port C1
+        this.frontLeft = this.hwMap.get(DcMotor.class, "frontLeft"); // Port C2
+        this.backLeft = this.hwMap.get(DcMotor.class, "backLeft"); // Port C3
         this.allMotors = new DcMotor[]{this.frontRight, backRight, frontLeft, backLeft};
 
-        // Intake Motor
-        this.intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
+        // --- Intake ---
+        this.intakeMotor = hwMap.get(DcMotor.class, "intakeMotor"); // Port E0
         this.intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Outtake Motor
-        this.outtakeMotor = this.hwMap.get(DcMotor.class, "outtakeMotor");
-        this.outtakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.outtakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        // Conveyor motors
-        this.conveyorMotor = hwMap.get(DcMotor.class, "conveyorMotor");
+        this.conveyorMotor = hwMap.get(DcMotor.class, "conveyorMotor"); // Port E1
         this.conveyorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.conveyorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // Movement Motor Configurations
+
+        // --- Outtake ---
+        this.outtakeMotor = this.hwMap.get(DcMotor.class, "outtakeMotor"); // Port E2
+        this.outtakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.outtakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        this.turretMotor = this.hwMap.get(DcMotor.class, "turretMotor"); // Port E3
+        this.turretMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        // --- Movement Motors ---
         for (DcMotor motor : allMotors) motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Mecanum Drive
@@ -81,11 +86,12 @@ public class SerpentsRobotHardware {
 
 
         // --- Servos ---
-        this.conveyorServo1 = hwMap.get(CRServo.class, "conveyorServoRight");
-        this.conveyorServo2 = hwMap.get(CRServo.class, "conveyorServoLeft");
+        // NOTE: moving servo pos to '1.0' moves servo COUNTER-CLOCKWISE
+        this.conveyorServo1 = hwMap.get(CRServo.class, "conveyorServoRight"); // Port E0
+        this.conveyorServo2 = hwMap.get(CRServo.class, "conveyorServoLeft"); // Port E1
         this.conveyorServos = new CRServo[]{this.conveyorServo1, this.conveyorServo2};
 
-        this.gapServo = hwMap.get(Servo.class, "gapServo");
+        this.gapServo = hwMap.get(Servo.class, "gapServo"); // Port E2
 
         this.isInitialized = true;
         telemetry.addLine("Hardware Initialized ^w^");
