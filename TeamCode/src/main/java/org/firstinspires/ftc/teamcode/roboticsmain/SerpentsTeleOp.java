@@ -86,7 +86,7 @@ public class SerpentsTeleOp extends LinearOpMode
             // B - Outtake (Forward)
             if (b_button && !pressedB)
             {
-                serpentsHardware.startOuttakeSequence(1.0, 1.0);
+                serpentsHardware.startOuttakeSequence(1.0, -1.0);
                 pressedB = true;
             }
 
