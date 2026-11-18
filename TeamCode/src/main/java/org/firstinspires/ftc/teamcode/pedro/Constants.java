@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 
 public class Constants {
     public static ForesightConfig foresightConfig = new ForesightConfig(
@@ -46,8 +47,8 @@ public class Constants {
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
-        c.xPodOffset.set(-7.295734675850455);
-        c.yPodOffset.set(-1.7345317329947405);
+        c.xPodOffset.set(SerpentsMathHelper.millimeterToInch(SerpentsMathHelper.X_OFFSET_DISTANCE));
+        c.yPodOffset.set(SerpentsMathHelper.millimeterToInch(SerpentsMathHelper.Y_OFFSET_DISTANCE));
         c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED);
         c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED);
         c.globalDistanceUnit.set(DistanceUnit.INCH);

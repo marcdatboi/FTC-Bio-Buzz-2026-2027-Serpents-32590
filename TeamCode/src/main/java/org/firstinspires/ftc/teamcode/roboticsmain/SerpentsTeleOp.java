@@ -45,7 +45,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
         // Wait until play button is pressed
         waitForStart();
-        serpentsHardware.getGapServo().setPosition(0.0);
+        serpentsHardware.getGapServo().setPosition(0.0); // Set intial servo position
 
 
 
