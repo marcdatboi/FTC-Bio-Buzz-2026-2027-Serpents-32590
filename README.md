@@ -2,6 +2,9 @@
 
 
 
+# NOTICE
+This project contains the public FTC SDK for the 2026-2027 BIOBUZZ season as well as the public Pedro Pathing Quickstart path following library.
+
 # General Project Info
 
 This project is a **Pedro Pathing** quickstart cloned repository, built and maintained for the FIRST Tech Challenge team **"Serpents" (Team 32590)** competing in the Bio-Buzz 2026-2027 season. It is designed to serve as the robot control codebase for the team's autonomous and teleop routines, built on top of the Pedro Pathing framework.
