@@ -25,8 +25,8 @@ public class SerpentsMathHelper {
     public static final double MAX_VEL = rpmToVelocity(312) * 1000; // in mm (1.524m/s)
     public static final double TRACK_WIDTH = inchToMillimeter(16.61);
     public static final double LATERAL_DISTANCE = inchToMillimeter(6.5); // distance between both dead-wheels
-    public static final double X_OFFSET_DISTANCE = inchToMillimeter(3.5); // y pos of parallel encoder
-    public static final double Y_OFFSET_DISTANCE = inchToMillimeter(3.9); // x pos of perpendicular encoder
+    public static final double X_OFFSET_DISTANCE = inchToMillimeter(-7.295734675850455); // y pos of parallel encoder
+    public static final double Y_OFFSET_DISTANCE = inchToMillimeter(-1.7345317329947405); // x pos of perpendicular encoder
 
 
     // --- HARDWARE ---
