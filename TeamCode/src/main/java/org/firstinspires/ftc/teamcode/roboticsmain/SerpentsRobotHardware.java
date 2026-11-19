@@ -29,6 +29,8 @@ public class SerpentsRobotHardware {
     private CRServo conveyorServo1, conveyorServo2;
     private CRServo[] conveyorServos;
     private Servo gapServo;
+
+    // Misc
     private HardwareMap hwMap;
     private Telemetry telemetry;
 
@@ -230,7 +232,7 @@ public class SerpentsRobotHardware {
     {
         this.isInitialized();
         this.setOuttakePower(outtakePower);
-        this.setServoPowers(new double[]{servoPower, servoPower});
+        this.setServoPowers(new double[]{servoPower, servoPower * -1.0});
     }
 
     public void stopOuttakeSequence() throws NullPointerException
@@ -242,13 +244,12 @@ public class SerpentsRobotHardware {
 
 
     // --- Servos ---
-    public Servo getGapServo() { return this.gapServo; }
     public void setServoPowers(double[] servoPowers) throws NullPointerException // 1 = RIGHT | 2 = LEFT
     {
         this.isInitialized();
         telemetry.addLine(String.format("RIGHT CONVEYOR SERVO POWER: %f | LEFT CONVEYOR SERVO POWER: %f", this.conveyorServo1.getPower(), this.conveyorServo2.getPower()));
-        this.conveyorServo1.setPower(servoPowers[0]);
-        this.conveyorServo2.setPower(servoPowers[1] * -1);
+        this.conveyorServos[0].setPower(servoPowers[0]);
+        this.conveyorServos[1].setPower(servoPowers[1]);
     }
 
     public void setGapServoPosition(double position)
@@ -256,4 +257,16 @@ public class SerpentsRobotHardware {
         isInitialized();
         this.gapServo.setPosition(position);
     }
+
+
+    // --- Getters ---
+    public CRServo[] getConveyorServos() throws NullPointerException
+    {
+        this.isInitialized();
+        return this.conveyorServos;
+    }
+
+    public Servo getGapServo() { return this.gapServo; }
+
+
 }

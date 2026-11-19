@@ -90,12 +90,12 @@ public class SerpentsTeleOp extends LinearOpMode
                 pressedB = true;
             }
 
-            if ((gamepad1.x && gamepad1.b) && (!pressedB || !pressedA)) { // Activate both Intake & Outtake (Forward)
-                serpentsHardware.startOuttakeSequence(1.0, 1.0);
-                serpentsHardware.startIntakeSequence(-1.0, 1.0);
-                pressedB = true;
-                pressedA = true;
-            }
+//            if ((gamepad1.x && gamepad1.b) && (!pressedB || !pressedA)) { // Activate both Intake & Outtake (Forward)
+//                serpentsHardware.startOuttakeSequence(1.0, -1.0);
+//                serpentsHardware.startIntakeSequence(-1.0, 1.0);
+//                pressedB = true;
+//                pressedA = true;
+//            }
 
             // Y - Intake (Reverse)
             if (y_button && !pressedY) {
