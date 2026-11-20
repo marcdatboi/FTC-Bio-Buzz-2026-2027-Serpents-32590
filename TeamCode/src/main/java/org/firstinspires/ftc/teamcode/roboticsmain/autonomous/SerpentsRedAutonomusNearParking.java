@@ -19,6 +19,8 @@ import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
@@ -55,6 +57,8 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
 
 //      --- Wait For Start ---
         waitForStart();
+        sleep(2000);
+
 
         while (opModeIsActive() && !isStopRequested())
         {
@@ -81,11 +85,11 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
     private Path toScore() {
         return curve(
                 SerpentsMathHelper.redStartingPositionNearGarden,
-                SerpentsMathHelper.redControlPointNorth,
-                SerpentsMathHelper.redShootingPositionNorth
+                SerpentsMathHelper.redControlPointSouth,
+                SerpentsMathHelper.redShootingPositionSouth
         ).linear(
                 SerpentsMathHelper.redStartingPositionNearGarden,
-                SerpentsMathHelper.redShootingPositionNorth
+                SerpentsMathHelper.redShootingPositionSouth
         );
     }
 }

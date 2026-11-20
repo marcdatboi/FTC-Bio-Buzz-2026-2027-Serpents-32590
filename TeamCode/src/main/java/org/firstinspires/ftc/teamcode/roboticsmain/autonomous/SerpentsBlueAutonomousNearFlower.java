@@ -66,6 +66,7 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
 
 //      --- Wait For Start ---
         waitForStart();
+        sleep(2000);
 
         while (opModeIsActive() && !isStopRequested())
         {

@@ -62,6 +62,7 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
 
 //      --- Wait For Start ---
         waitForStart();
+        sleep(2000);
 
         while (opModeIsActive() && !isStopRequested())
         {
@@ -88,11 +89,11 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
     private Path toScore() {
         return Paths.curve(
                 SerpentsMathHelper.blueStartingPositionNearGarden,
-                SerpentsMathHelper.blueControlPointSouth,
-                SerpentsMathHelper.blueShootingPositionSouth
+                SerpentsMathHelper.getBlueControlPointNorth,
+                SerpentsMathHelper.blueShootingPositionNorth
         ).linear(
                 SerpentsMathHelper.blueStartingPositionNearGarden,
-                SerpentsMathHelper.blueShootingPositionSouth
+                SerpentsMathHelper.blueShootingPositionNorth
         );
     }
 }
