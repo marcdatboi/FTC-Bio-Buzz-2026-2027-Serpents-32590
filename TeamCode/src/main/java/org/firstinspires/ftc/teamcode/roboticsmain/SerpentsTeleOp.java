@@ -80,7 +80,7 @@ public class SerpentsTeleOp extends LinearOpMode
             // A - Intake (Forward)
             if (a_button && !pressedA)
             {
-                serpentsHardware.startIntakeSequence(-1.0, 1.0);
+                serpentsHardware.startIntakeSequence(-1.0, -1.0);
                 pressedA = true;
             }
 
@@ -91,6 +91,7 @@ public class SerpentsTeleOp extends LinearOpMode
                 pressedB = true;
             }
 
+            // X - Outtake (Reverse)
             if (x_button && !pressedX)
             {
                 serpentsHardware.startOuttakeSequence(-0.5, 1.0);
@@ -99,7 +100,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
             // Y - Intake (Reverse)
             if (y_button && !pressedY) {
-                serpentsHardware.startIntakeSequence(1.0, -1.0);
+                serpentsHardware.startIntakeSequence(1.0, 1.0);
                 pressedY = true;
             }
 
