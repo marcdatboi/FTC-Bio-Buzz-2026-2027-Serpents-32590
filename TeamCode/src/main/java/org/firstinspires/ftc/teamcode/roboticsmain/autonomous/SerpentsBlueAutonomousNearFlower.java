@@ -100,10 +100,10 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
         return sequential
         (
                 follow(follower, toScore()),
-                instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake 4 pollen
-//                instant(() -> hardware.setGapServoPosition(0.0)),
+                instant(() -> hardware.startOuttakeSequence(0.7, 0.0)), // Ramp outtake 4 pollen
                 waitMs(3000),
-                instant(() -> hardware.startOuttakeSequence(0.7, -1.0)), // Shoot pollen
+                instant(() -> hardware.setConveyorMotorPower(-1.0)),
+                instant(() -> hardware.startOuttakeSequence(0.65, -1.0)), // Shoot pollen
                 waitMs(3000),
                 instant(() -> hardware.stopOuttakeSequence()),
                 follow(follower, toParking())
