@@ -9,7 +9,7 @@ import com.pedropathing.ivy.Command;
 
 public interface SerpentsTrajectory
 {
-    Path toScore();
-    Path toParking();
-    Command autoRoutine();
+    public Path toScore();
+    public Path toParking();
+    public Command autoRoutine();
 }
