@@ -42,6 +42,8 @@ import org.firstinspires.ftc.teamcode.roboticsmain.SerpentsRobotHardware;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
+import java.nio.channels.spi.SelectorProvider;
+
 @Autonomous(name = "BlueAutonomousNearFlower")
 public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
 {
@@ -100,7 +102,8 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
                 waitMs(3000),
                 instant(() -> hardware.startOuttakeSequence(1.0, -1.0)), // Shoot pollen
                 waitMs(3000),
-                instant(() -> hardware.stopOuttakeSequence())
+                instant(() -> hardware.stopOuttakeSequence()),
+                follow(follower, toParking())
         );
     }
 
@@ -118,10 +121,16 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
         );
     }
 
-//    private Path toParking()
-//    {
-//        return Paths.curve(
-//                SerpentsMathHelper.
-//        )
-//    }
+    private Path toParking()
+    {
+        return Paths.curve(
+                SerpentsMathHelper.blueShootingPositionNorth,
+                SerpentsMathHelper.blueControlPoint5,
+                SerpentsMathHelper.blueControlPoint6,
+                SerpentsMathHelper.blueParkingPosition
+        ).linear(
+                SerpentsMathHelper.blueShootingPositionNorth,
+                SerpentsMathHelper.blueParkingPosition
+        );
+    }
 }

@@ -27,8 +27,12 @@ import com.pedropathing.math.Pose;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.instant;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
+
+import org.firstinspires.ftc.teamcode.roboticsmain.SerpentsRobotHardware;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
@@ -38,6 +42,7 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
     private Follower follower;
     private PoseFactory p;
     private TelemetryLogger logger;
+    private SerpentsRobotHardware hardware;
 
     @Override
     public void runOpMode()
@@ -46,6 +51,7 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
         this.p = PoseFactory.degrees();
         this.follower = Constants.create(hardwareMap);
         this.logger = new TelemetryLogger(this.follower, telemetry);
+        this.hardware = new SerpentsRobotHardware(hardwareMap, telemetry);
         this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
 
         while (!isStarted() && !isStopRequested())
@@ -80,7 +86,13 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
     private Command autoRoutine() // use in the 'schedule()' function
     {
         return sequential(
-                follow(follower, toScore())
+                follow(follower, toScore()),
+                instant(() -> hardware.startOuttakeSequence(1.0, 0.0)), // Ramp outtake
+                waitMs(3000),
+                instant(() -> hardware.startOuttakeSequence(1.0, -1.0)), // Shoot pollen
+                waitMs(3000),
+                instant(() -> hardware.stopOuttakeSequence()),
+                follow(follower, toParking())
         );
     }
 
@@ -95,6 +107,19 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
         ).linear(
                 SerpentsMathHelper.blueStartingPositionNearGarden,
                 SerpentsMathHelper.blueShootingPositionNorth
+        );
+    }
+
+    private Path toParking()
+    {
+        return Paths.curve(
+                SerpentsMathHelper.blueShootingPositionNorth,
+                SerpentsMathHelper.blueControlPoint5,
+                SerpentsMathHelper.blueControlPoint6,
+                SerpentsMathHelper.blueParkingPosition
+        ).linear(
+                SerpentsMathHelper.blueShootingPositionNorth,
+                SerpentsMathHelper.blueParkingPosition
         );
     }
 }

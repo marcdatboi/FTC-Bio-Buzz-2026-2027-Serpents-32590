@@ -76,6 +76,11 @@ public class SerpentsMathHelper {
     public static final Pose redControlPoint4 = poseFactory.of(0.0, 31.57, 90); // South
 
 
+    // --- Shooting To Parking ---
+    public static final Pose redControlPoint5 = poseFactory.of(6.1, 18.93, 120.0);
+    public static final Pose redControlPoint6 = poseFactory.of(62.96, 99.82, 95.0);
+
+
 
 
 
@@ -84,9 +89,9 @@ public class SerpentsMathHelper {
     public static final Pose blueStartingPositionNearFlower = poseFactory.of(131.96, 80.74, 180);
     public static final Pose blueShootingPositionNorth = poseFactory.of(83.6, 128.2, 270);
     public static final Pose blueShootingPositionSouth = poseFactory.of(83.0, 14.28, 90);
-    public static final Pose blueParkingPosition = poseFactory.of(131.32, 34.24, 180.0);
+    public static final Pose blueParkingPosition = poseFactory.of(131.32, 44.17, 180.0);
 
-    // BLUE ALLIANCE CONTROL
+    // BLUE ALLIANCE CONTROL POINTS
     // --- Starting Near Garden ---
     public static final Pose blueControlPoint1 = poseFactory.of(91.1, 34.65, 180.0); // North
     public static final Pose blueControlPoint2 = poseFactory.of(138.2, 129.54, 270.0); // North
@@ -94,6 +99,11 @@ public class SerpentsMathHelper {
 
     // --- Starting Near Flower ---
     public static final Pose blueControlPoint3 = poseFactory.of(88.28, 66.99, 180.0); // North
-    public static final Pose blueControlPoint4 = poseFactory.of(138.02, 128.2, 270.0); // South
+    public static final Pose blueControlPoint4 = poseFactory.of(138.02, 128.2, 270.0); // North
+
+
+    // --- Shooting To Parking ---
+    public static final Pose blueControlPoint5 = poseFactory.of(136.45, 112.95, 180.0); // North
+    public static final Pose blueControlPoint6 = poseFactory.of(84.72, 37.56, 180.0); // North
 
 }
