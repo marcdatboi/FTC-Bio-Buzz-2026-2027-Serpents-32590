@@ -88,6 +88,7 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
         return sequential(
                 follow(follower, toScore()),
                 instant(() -> hardware.startOuttakeSequence(1.0, 0.0)), // Ramp outtake
+                instant(() -> hardware.setGapServoPosition(0.7)),
                 waitMs(3000),
                 instant(() -> hardware.startOuttakeSequence(1.0, -1.0)), // Shoot pollen
                 waitMs(3000),
