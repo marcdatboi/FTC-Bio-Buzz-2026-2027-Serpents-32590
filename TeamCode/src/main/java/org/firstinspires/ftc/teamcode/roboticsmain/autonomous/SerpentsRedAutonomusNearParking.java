@@ -65,7 +65,7 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
 //      --- Wait For Start ---
         waitForStart();
         hardware.setGapServoPosition(0.0); // Reset Position
-        sleep(5000);
+        sleep(13000);
 
 
         while (opModeIsActive() && !isStopRequested())
