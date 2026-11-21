@@ -11,16 +11,14 @@ This project is a **Pedro Pathing** quickstart cloned repository, built and main
 
 # Current Features Implemented
 
-- A fully working **mecanum drive**.
-- A **reversible intake** for collecting or pushing out game elements.
-- A **stationary outtake** for both **Nectar** and **Pollen**, with a partially adjustable mechanism using a servo that is still in progress (not yet finished).
-- A **fully tuned robot** with **starter autonomous code** to leave the parking spot.
+- A fully working mecanum drive.
+- A reversible intake for collecting or pushing out game elements.
+- A stationary outtake for both Nectar and Pollen, with a partially adjustable mechanism using a servo.
+- A fully tuned robot + foresight with autonomous code that paths to shooting spots and intentionally partial parks
+to make room for our teammate robot.
+- Autonomous mode spans 4 possible spots across both red and blue (2 auto's per side)
 
 # Upcoming & Planned Features
-
-- Development of **turret** behavior to launch Nectar and **swivel 360 degrees**.
-- **Four full autonomous routines** spanning the four possible starting spots.
-- Fine-tuning of the outtake **"gapServo"** to ensure it operates properly.
 - Integration of a **Gobilda HuskyLens camera** to help the robot determine which hive to shoot Nectar and Pollen into.
 
 # Development Versions Used
