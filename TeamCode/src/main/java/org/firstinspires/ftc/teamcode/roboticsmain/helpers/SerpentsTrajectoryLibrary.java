@@ -19,18 +19,28 @@ import org.firstinspires.ftc.teamcode.roboticsmain.helpers.interfaces.SerpentsTr
 
 public class SerpentsTrajectoryLibrary
 {
-    Follower follower;
-    SerpentsRobotHardware hardware;
-    TelemetryLogger logger;
+    private Follower follower;
+    private SerpentsRobotHardware hardware;
+    private TelemetryLogger logger;
+
+    // Properties / Modifiers
+    private double initialAutonomousDelay;
 
 
     // === Constructor ===
-    public SerpentsTrajectoryLibrary(Follower follower, SerpentsRobotHardware hardware, TelemetryLogger logger)
-    {
+    public SerpentsTrajectoryLibrary
+    (
+            Follower follower,
+            SerpentsRobotHardware hardware,
+            TelemetryLogger logger,
+            double initialAutonomousDelayMilliseconds
+    ) {
         this.follower = follower;
         this.hardware = hardware;
         this.logger = logger;
+        this.initialAutonomousDelay = initialAutonomousDelayMilliseconds;
 
+        // Check for null pointers prior to use
         if (
             this.follower == null ||
             this.hardware == null ||
@@ -78,6 +88,8 @@ public class SerpentsTrajectoryLibrary
             public Command autoRoutine()
             {
                 return sequential(
+                        waitMs(initialAutonomousDelay), // Delay before start
+
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
 //                      instant(() -> hardware.setGapServoPosition(0.0)),
@@ -123,6 +135,8 @@ public class SerpentsTrajectoryLibrary
             public Command autoRoutine()
             {
                 return sequential(
+                        waitMs(initialAutonomousDelay), // Delay before start
+
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
 //                      instant(() -> hardware.setGapServoPosition(0.0)),
@@ -175,6 +189,8 @@ public class SerpentsTrajectoryLibrary
             {
                 return sequential
                 (
+                        waitMs(initialAutonomousDelay), // Delay before start
+
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake 4 pollen
 //                      instant(() -> hardware.setGapServoPosition(0.0)),
@@ -221,6 +237,8 @@ public class SerpentsTrajectoryLibrary
             public Command autoRoutine()
             {
                 return sequential(
+                        waitMs(initialAutonomousDelay), // Delay before start
+
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
 //                      instant(() -> hardware.setGapServoPosition(0.0)), // Adjust for pollen
