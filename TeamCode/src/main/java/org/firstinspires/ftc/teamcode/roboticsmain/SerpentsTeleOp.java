@@ -91,6 +91,12 @@ public class SerpentsTeleOp extends LinearOpMode
                 pressedB = true;
             }
 
+            if (x_button && !pressedX)
+            {
+                serpentsHardware.startOuttakeSequence(-0.5, 1.0);
+                pressedX = true;
+            }
+
             // Y - Intake (Reverse)
             if (y_button && !pressedY) {
                 serpentsHardware.startIntakeSequence(1.0, -1.0);

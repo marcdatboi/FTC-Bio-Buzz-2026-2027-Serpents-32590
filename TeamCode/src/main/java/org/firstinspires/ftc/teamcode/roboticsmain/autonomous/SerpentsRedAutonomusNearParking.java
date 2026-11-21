@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.roboticsmain.SerpentsRobotHardware;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
-@Autonomous(name = "RedAutonomousNearGarden")
+@Autonomous(name = "RedAutonomousNearParking")
 public class SerpentsRedAutonomusNearParking extends LinearOpMode
 {
     private Follower follower;
