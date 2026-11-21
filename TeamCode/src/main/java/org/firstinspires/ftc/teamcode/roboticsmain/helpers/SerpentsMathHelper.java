@@ -55,26 +55,45 @@ public class SerpentsMathHelper {
     }
 
 
-    // --- STARTING POSITIONS ---
 
-    // RED ALLIANCE
+
+
+    // ---=== RED ALLIANCE ===---
     public static final Pose redStartingPositionNearGarden = poseFactory.of(8.6, 82.9, 0.0);
     public static final Pose redStartingPositionNearFlower = poseFactory.of(8.5, 60, 0.0);
     public static final Pose redShootingPositionNorth = poseFactory.of(58.5, 126.0, 270.0);
     public static final Pose redShootingPositionSouth = poseFactory.of(58.87, 9.48, 90.0);
+    public static final Pose redParkingPosition = poseFactory.of(9.86, 106.26, 0.0);
 
     // RED ALLIANCE CONTROL
-    public static final Pose redControlPointNorth = poseFactory.of(34.81, 88.17, -45.0);
-    public static final Pose redControlPointSouth = poseFactory.of(44.94, 44.86, 45.0);
+    // --- Starting Near Garden ---
+    public static final Pose redControlPoint1 = poseFactory.of(62.89, 100.65, 45.0); // South
+    public static final Pose redControlPoint2 = poseFactory.of(0.0, 11.8, 90.0); // South
 
-    // BLUE ALLIANCE
+
+    // --- Starting Near Flower ---
+    public static final Pose redControlPoint3 = poseFactory.of(52.55, 64.54, 270.0); // South
+    public static final Pose redControlPoint4 = poseFactory.of(0.0, 31.57, 90); // South
+
+
+
+
+
+    // ---=== BLUE ALLIANCE ===---
     public static final Pose blueStartingPositionNearGarden = poseFactory.of(132, 58.237, 180);
     public static final Pose blueStartingPositionNearFlower = poseFactory.of(131.96, 80.74, 180);
     public static final Pose blueShootingPositionNorth = poseFactory.of(83.6, 128.2, 270);
     public static final Pose blueShootingPositionSouth = poseFactory.of(83.0, 14.28, 90);
+    public static final Pose blueParkingPosition = poseFactory.of(131.32, 34.24, 180.0);
 
     // BLUE ALLIANCE CONTROL
-    public static final Pose blueControlPointSouth = poseFactory.of(90.0, 34.0, 75.0);
-    public static final Pose getBlueControlPointNorth = poseFactory.of(108.85, 111.39, 270.0);
+    // --- Starting Near Garden ---
+    public static final Pose blueControlPoint1 = poseFactory.of(91.1, 34.65, 180.0); // North
+    public static final Pose blueControlPoint2 = poseFactory.of(138.2, 129.54, 270.0); // North
+
+
+    // --- Starting Near Flower ---
+    public static final Pose blueControlPoint3 = poseFactory.of(88.28, 66.99, 180.0); // North
+    public static final Pose blueControlPoint4 = poseFactory.of(138.02, 128.2, 270.0); // South
 
 }

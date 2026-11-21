@@ -30,9 +30,15 @@ import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.instant;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
+
+import org.firstinspires.ftc.teamcode.roboticsmain.SerpentsRobotHardware;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
@@ -42,6 +48,8 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
     private Follower follower;
     private PoseFactory p;
     private TelemetryLogger logger;
+    private SerpentsRobotHardware hardware;
+    private ElapsedTime outtakeTimer;
 
     @Override
     public void runOpMode()
@@ -50,6 +58,8 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
         this.p = PoseFactory.degrees();
         this.follower = Constants.create(hardwareMap);
         this.logger = new TelemetryLogger(this.follower, telemetry);
+        this.hardware = new SerpentsRobotHardware(hardwareMap, telemetry);
+        this.outtakeTimer = new ElapsedTime();
         this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
 
         while (!isStarted() && !isStopRequested())
@@ -66,7 +76,7 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
 
 //      --- Wait For Start ---
         waitForStart();
-        sleep(2000);
+        sleep(5000);
 
         while (opModeIsActive() && !isStopRequested())
         {
@@ -83,8 +93,14 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
     // --- Routines ---
     private Command autoRoutine() // use in the 'schedule()' function
     {
-        return sequential(
-                follow(follower, toScore())
+        return sequential
+        (
+                follow(follower, toScore()),
+                instant(() -> hardware.startOuttakeSequence(1.0, 0.0)), // Ramp outtake
+                waitMs(3000),
+                instant(() -> hardware.startOuttakeSequence(1.0, -1.0)), // Shoot pollen
+                waitMs(3000),
+                instant(() -> hardware.stopOuttakeSequence())
         );
     }
 
@@ -93,11 +109,19 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
     private Path toScore() {
         return Paths.curve(
                 SerpentsMathHelper.blueStartingPositionNearFlower,
-                SerpentsMathHelper.getBlueControlPointNorth,
+                SerpentsMathHelper.blueControlPoint3,
+                SerpentsMathHelper.blueControlPoint4,
                 SerpentsMathHelper.blueShootingPositionNorth
         ).linear(
                 SerpentsMathHelper.blueStartingPositionNearFlower,
                 SerpentsMathHelper.blueShootingPositionNorth
         );
     }
+
+//    private Path toParking()
+//    {
+//        return Paths.curve(
+//                SerpentsMathHelper.
+//        )
+//    }
 }

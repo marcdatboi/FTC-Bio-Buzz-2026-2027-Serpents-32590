@@ -57,7 +57,7 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
 
 //      --- Wait For Start ---
         waitForStart();
-        sleep(2000);
+        sleep(5000);
 
 
         while (opModeIsActive() && !isStopRequested())
@@ -85,7 +85,8 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
     private Path toScore() {
         return curve(
                 SerpentsMathHelper.redStartingPositionNearGarden,
-                SerpentsMathHelper.redControlPointSouth,
+                SerpentsMathHelper.redControlPoint1,
+                SerpentsMathHelper.redControlPoint2,
                 SerpentsMathHelper.redShootingPositionSouth
         ).linear(
                 SerpentsMathHelper.redStartingPositionNearGarden,

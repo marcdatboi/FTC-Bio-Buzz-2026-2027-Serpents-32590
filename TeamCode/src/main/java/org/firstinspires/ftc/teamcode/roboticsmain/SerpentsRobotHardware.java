@@ -242,6 +242,48 @@ public class SerpentsRobotHardware {
         this.setServoPowers(new double[]{0.0, 0.0});
     }
 
+    public void startCollectionMode(String mode, ElapsedTime timer) throws NullPointerException
+    {
+        this.isInitialized();
+        timer.reset();
+
+        switch (mode)
+        {
+            case "in":
+                this.startIntakeSequence(-1.0, 1.0);
+                break;
+
+            case "out":
+                this.startOuttakeSequence(1.0, -1.0);
+                break;
+
+            default:
+                throw new NullPointerException("startCollectionMode() >> Invalid Mode Type! Actual Param: '" + mode + "'");
+        }
+    }
+
+    public void stopCollectionMode(double afterMilliseconds, String mode, ElapsedTime timer) throws NullPointerException
+    {
+        this.isInitialized();
+
+        if (timer.milliseconds() >= afterMilliseconds)
+        {
+            switch (mode)
+            {
+                case "in":
+                    this.stopIntakeSequence();
+                    break;
+
+                case "out":
+                    this.stopOuttakeSequence();
+                    break;
+
+                default:
+                    throw new NullPointerException("startCollectionMode() >> Invalid Mode Type! Actual Param: '" + mode + "'");
+            }
+        }
+    }
+
 
     // --- Servos ---
     public void setServoPowers(double[] servoPowers) throws NullPointerException // 1 = RIGHT | 2 = LEFT
@@ -267,6 +309,4 @@ public class SerpentsRobotHardware {
     }
 
     public Servo getGapServo() { return this.gapServo; }
-
-
 }

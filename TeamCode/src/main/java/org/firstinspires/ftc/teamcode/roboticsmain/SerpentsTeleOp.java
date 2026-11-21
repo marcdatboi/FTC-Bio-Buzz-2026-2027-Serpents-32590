@@ -35,7 +35,8 @@ public class SerpentsTeleOp extends LinearOpMode
         boolean pressedLeftBumper = false;
 
         // Cooldown for bumpers
-        ElapsedTime timer = new ElapsedTime();
+        ElapsedTime rightBumperTimer = new ElapsedTime();
+        ElapsedTime leftBumperTimer = new ElapsedTime();
         boolean canPressRightBumper = true;
         boolean canPressLeftBumper = true;
 
@@ -45,7 +46,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
         // Wait until play button is pressed
         waitForStart();
-        serpentsHardware.getGapServo().setPosition(0.0); // Set intial servo position
+        serpentsHardware.setGapServoPosition(0.0);
 
 
 
@@ -90,13 +91,6 @@ public class SerpentsTeleOp extends LinearOpMode
                 pressedB = true;
             }
 
-//            if ((gamepad1.x && gamepad1.b) && (!pressedB || !pressedA)) { // Activate both Intake & Outtake (Forward)
-//                serpentsHardware.startOuttakeSequence(1.0, -1.0);
-//                serpentsHardware.startIntakeSequence(-1.0, 1.0);
-//                pressedB = true;
-//                pressedA = true;
-//            }
-
             // Y - Intake (Reverse)
             if (y_button && !pressedY) {
                 serpentsHardware.startIntakeSequence(1.0, -1.0);
@@ -106,24 +100,20 @@ public class SerpentsTeleOp extends LinearOpMode
 
             // --- Bumpers ---
             if (increaseBumper && !pressedRightBumper && canPressRightBumper) { // Right Bumper - INCREASE DISTANCE
-                serpentsHardware.setGapServoPosition(
-                        // last config: min = 0.3, max = 0.55
-                        Range.clip(serpentsHardware.getGapServo().getPosition() + 0.1, 0.0, 1.0));
+                // last config: 0.7
+                serpentsHardware.setGapServoPosition(0.0);
                 canPressRightBumper = false;
                 pressedRightBumper = true;
-                timer.reset();
+                rightBumperTimer.reset();
             }
 
             if (decreaseBumper && !pressedLeftBumper && canPressLeftBumper) { // Left Bumper - DECREASE DISTANCE
-                serpentsHardware.setGapServoPosition(
-                        // last config: min = 0.3, max = 0.55
-                        Range.clip(serpentsHardware.getGapServo().getPosition() - 0.1, 0.0, 1.0)
-                );
+                // last config: 1.0
+                serpentsHardware.setGapServoPosition(0.27);
                 canPressLeftBumper = false;
                 pressedLeftBumper = true;
-                timer.reset();
+                leftBumperTimer.reset();
             }
-
 
 
             // --- Update Everything at the end of the Loop ---
@@ -133,11 +123,13 @@ public class SerpentsTeleOp extends LinearOpMode
             serpentsHardware.stopOuttakeSequence();
 
 
-
             // --- Update Button States ---
             // Bumper Cooldowns
-            if (timer.milliseconds() >= 500) { // 0.5 sec
+            if (leftBumperTimer.milliseconds() >= 500.0 && leftBumperTimer.milliseconds() <= 550.0) { // 0.5s
                 canPressLeftBumper = true;
+            }
+
+            if (rightBumperTimer.milliseconds() >= 500.0 && rightBumperTimer.milliseconds() <= 550.0) { // 0.5s
                 canPressRightBumper = true;
             }
 
@@ -149,6 +141,8 @@ public class SerpentsTeleOp extends LinearOpMode
             pressedLeftBumper = false;
             pressedRightBumper = false;
             telemetry.addLine(String.format("GAP SERVO POS: %.2f", serpentsHardware.getGapServo().getPosition()));
+            telemetry.addLine(String.format("canPressLeftBumper = %b", canPressLeftBumper));
+            telemetry.addLine(String.format("canPressRightBumper = %b", canPressRightBumper));
             telemetry.update(); // Update Telemetry
         }
     }
