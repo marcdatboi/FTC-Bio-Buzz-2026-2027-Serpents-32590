@@ -106,7 +106,7 @@ public class SerpentsTeleOp extends LinearOpMode
 
 
             // --- Bumpers ---
-            if (increaseBumper && !pressedRightBumper && canPressRightBumper) { // Right Bumper - INCREASE DISTANCE
+            if (increaseBumper && !pressedRightBumper && canPressRightBumper) { // Right Bumper - Pollen
                 // last config: 0.7
                 serpentsHardware.setGapServoPosition(0.0);
                 canPressRightBumper = false;
@@ -114,7 +114,7 @@ public class SerpentsTeleOp extends LinearOpMode
                 rightBumperTimer.reset();
             }
 
-            if (decreaseBumper && !pressedLeftBumper && canPressLeftBumper) { // Left Bumper - DECREASE DISTANCE
+            if (decreaseBumper && !pressedLeftBumper && canPressLeftBumper) { // Left Bumper - Nectar
                 // last config: 1.0
                 serpentsHardware.setGapServoPosition(0.27);
                 canPressLeftBumper = false;
