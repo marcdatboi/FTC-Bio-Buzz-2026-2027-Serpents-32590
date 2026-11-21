@@ -48,6 +48,7 @@ public class SerpentsTrajectoryLibrary
         ) {
             throw new NullPointerException("SerpentsAutonomousHelper() >> One or more parameters are null!");
         }
+
     }
 
 
@@ -89,6 +90,7 @@ public class SerpentsTrajectoryLibrary
             {
                 return sequential(
                         waitMs(initialAutonomousDelay), // Delay before start
+                        instant(() -> hardware.setGapServoPosition(0.0)),
 
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
@@ -136,6 +138,7 @@ public class SerpentsTrajectoryLibrary
             {
                 return sequential(
                         waitMs(initialAutonomousDelay), // Delay before start
+                        instant(() -> hardware.setGapServoPosition(0.0)),
 
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
@@ -190,6 +193,7 @@ public class SerpentsTrajectoryLibrary
                 return sequential
                 (
                         waitMs(initialAutonomousDelay), // Delay before start
+                        instant(() -> hardware.setGapServoPosition(0.0)),
 
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake 4 pollen
@@ -238,6 +242,7 @@ public class SerpentsTrajectoryLibrary
             {
                 return sequential(
                         waitMs(initialAutonomousDelay), // Delay before start
+                        instant(() -> hardware.setGapServoPosition(0.0)),
 
                         follow(follower, toScore()),
                         instant(() -> hardware.startOuttakeSequence(0.8, 0.0)), // Ramp outtake
