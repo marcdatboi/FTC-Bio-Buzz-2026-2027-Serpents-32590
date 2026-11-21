@@ -47,7 +47,8 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
         this.follower = Constants.create(hardwareMap);
         this.logger = new TelemetryLogger(this.follower, telemetry);
         this.hardware = new SerpentsRobotHardware(hardwareMap, telemetry);
-        this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
+        this.hardware.initialize();
+        this.follower.setPose(SerpentsMathHelper.redStartingPositionNearParking);
 
         while (!isStarted() && !isStopRequested())
         {
@@ -97,12 +98,12 @@ public class SerpentsRedAutonomusNearParking extends LinearOpMode
     // --- PATHING ---
     private Path toScore() {
         return curve(
-                SerpentsMathHelper.redStartingPositionNearGarden,
+                SerpentsMathHelper.redStartingPositionNearParking,
                 SerpentsMathHelper.redControlPoint1,
                 SerpentsMathHelper.redControlPoint2,
                 SerpentsMathHelper.redShootingPositionSouth
         ).linear(
-                SerpentsMathHelper.redStartingPositionNearGarden,
+                SerpentsMathHelper.redStartingPositionNearParking,
                 SerpentsMathHelper.redShootingPositionSouth
         );
     }

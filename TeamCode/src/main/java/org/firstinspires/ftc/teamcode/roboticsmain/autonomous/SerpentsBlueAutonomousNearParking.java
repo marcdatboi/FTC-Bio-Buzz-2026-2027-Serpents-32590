@@ -36,7 +36,7 @@ import org.firstinspires.ftc.teamcode.roboticsmain.SerpentsRobotHardware;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.SerpentsMathHelper;
 import org.firstinspires.ftc.teamcode.roboticsmain.helpers.TelemetryLogger;
 
-@Autonomous(name = "BlueAutonomousNearGarden")
+@Autonomous(name = "BlueAutonomousNearParking")
 public class SerpentsBlueAutonomousNearParking extends LinearOpMode
 {
     private Follower follower;
@@ -52,7 +52,8 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
         this.follower = Constants.create(hardwareMap);
         this.logger = new TelemetryLogger(this.follower, telemetry);
         this.hardware = new SerpentsRobotHardware(hardwareMap, telemetry);
-        this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
+        this.hardware.initialize();
+        this.follower.setPose(SerpentsMathHelper.blueStartingPositionNearParking);
 
         while (!isStarted() && !isStopRequested())
         {
@@ -88,7 +89,7 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
         return sequential(
                 follow(follower, toScore()),
                 instant(() -> hardware.startOuttakeSequence(1.0, 0.0)), // Ramp outtake
-                instant(() -> hardware.setGapServoPosition(0.7)),
+                instant(() -> hardware.setGapServoPosition(0.7)), // Adjust for pollen
                 waitMs(3000),
                 instant(() -> hardware.startOuttakeSequence(1.0, -1.0)), // Shoot pollen
                 waitMs(3000),
@@ -101,12 +102,12 @@ public class SerpentsBlueAutonomousNearParking extends LinearOpMode
     // --- PATHING ---
     private Path toScore() {
         return Paths.curve(
-                SerpentsMathHelper.blueStartingPositionNearGarden,
+                SerpentsMathHelper.blueStartingPositionNearParking,
                 SerpentsMathHelper.blueControlPoint1,
                 SerpentsMathHelper.blueControlPoint2,
                 SerpentsMathHelper.blueShootingPositionNorth
         ).linear(
-                SerpentsMathHelper.blueStartingPositionNearGarden,
+                SerpentsMathHelper.blueStartingPositionNearParking,
                 SerpentsMathHelper.blueShootingPositionNorth
         );
     }

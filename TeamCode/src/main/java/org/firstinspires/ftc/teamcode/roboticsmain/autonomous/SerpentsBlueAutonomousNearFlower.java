@@ -61,8 +61,9 @@ public class SerpentsBlueAutonomousNearFlower extends LinearOpMode
         this.follower = Constants.create(hardwareMap);
         this.logger = new TelemetryLogger(this.follower, telemetry);
         this.hardware = new SerpentsRobotHardware(hardwareMap, telemetry);
+        this.hardware.initialize();
         this.outtakeTimer = new ElapsedTime();
-        this.follower.setPose(SerpentsMathHelper.redStartingPositionNearGarden);
+        this.follower.setPose(SerpentsMathHelper.blueStartingPositionNearFlower);
 
         while (!isStarted() && !isStopRequested())
         {
