@@ -7,10 +7,64 @@ package org.firstinspires.ftc.teamcode.roboticsmain.helpers;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 
+/**
+ * Centralized pose definitions for the FTC field (141.5" × 141.5").
+ *
+ * All poses are in inches and degrees, designed for use with the
+ * {@code com.pedropathing} pathing library. The field is divided into two
+ * alliance-color namespaces — {@link RedAlliance} and {@link BlueAlliance} —
+ * each containing identical structure.
+ *
+ * ==============================
+ *  USAGE & PATH-CHAIN RULES
+ * ==============================
+ *
+ * 1. Multi-step paths (e.g. Starting → Scoring → Flower)
+ *    return the robot to the alliance starting position between each step.
+ *    For example, pathToScore → pathToFlower will:
+ *       a. Move from the starting position to the scoring pose.
+ *       b. Return to the starting position.
+ *       c. Move from the starting position to the flower pose.
+ *
+ * 2. If you need the robot to visit multiple locations in sequence without
+ *    returning to starting between each, chain the control points manually
+ *    using a single {@code path.moveTo(List.of(…))} call.
+ *
+ * ==============================
+ *  SWAPPING ALLIANCE SIDES
+ * ==============================
+ *
+ * To cross the field and perform a routine on the opposite alliance side:
+ *
+ *   a. Path to the center of the field using the {@code ToCenter} control
+ *      points from your own alliance's {@code Starting} class.
+ *   b. From the center, path to the opposing alliance's starting position
+ *      using that class with {@code .reverse()} applied to the pose chain.
+ *
+ * Example — Blue robot scores on the red side, visits the rightmost flower,
+ * then returns to the blue starting position:
+ *
+ *   pathToScore        → score on red side
+ *   toParking          → return to red starting position
+ *   toRightFlower      → go to rightmost flower on red side
+ *   toParking          → return to red starting position
+ *   toCenter           → path to center via ToCenter control points
+ *   RedAlliance.Starting.*.reverse() → path to blue starting position
+ *
+ * ==============================
+ *  COORDINATE SYSTEM
+ * ==============================
+ *
+ * - X axis: 0" (left) → 141.5" (right)
+ * - Y axis: 0" (bottom / red scoring side) → 141.5" (top / blue scoring side)
+ * - Heading: 0° = facing toward positive Y (blue wall), increasing counter-clockwise
+ *
+ * The BlueAlliance poses are the red-side poses mirrored across the field
+ * center: X → 141.5 − X, heading → (heading + 180) mod 360.
+ */
 public class SerpentsCoordinates
 {
     private static final PoseFactory pf = PoseFactory.degrees();
-
 
     public static class RedAlliance
     {
